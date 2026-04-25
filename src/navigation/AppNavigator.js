@@ -1,12 +1,17 @@
+import { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import { AuthContext } from '../context/AuthContext';
 
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import AboutScreen from '../screens/AboutScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
+import RegisterScreen from '../screens/auth/RegisterScreen';
+import ForgotPassword from '../screens/auth/ForgotPassword';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -20,7 +25,17 @@ function HomeStack() {
   );
 }
 
-export default function AppNavigator() {
+function AuthStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+    </Stack.Navigator>
+  );
+}
+
+function MainTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -42,4 +57,9 @@ export default function AppNavigator() {
       <Tab.Screen name="About" component={AboutScreen} />
     </Tab.Navigator>
   );
+}
+
+export default function AppNavigator() {
+  const { user } = useContext(AuthContext);
+  return user ? <MainTabs /> : <AuthStack />;
 }

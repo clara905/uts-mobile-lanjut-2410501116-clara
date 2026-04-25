@@ -1,14 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
-import AppNavigator from './src/navigation/AppNavigator';
 import { FavoritProvider } from './src/context/FavoritContext';
-
+import { AuthProvider } from './src/context/AuthContext';
+import AppNavigator from './src/navigation/AppNavigator';
 
 export default function App() {
   return (
-    <FavoritProvider>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </FavoritProvider>
+    <AuthProvider>
+      <FavoritProvider>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </FavoritProvider>
+    </AuthProvider>
   );
 }

@@ -12,7 +12,23 @@ export const fetchMeals = async (category = 'Seafood') => {
 };
 
 export const fetchMealDetail = async (id) => {
-  const res = await fetch(`${BASE_URL}/lookup.php?i=${id}`);
-  const data = await res.json();
-  return data.meals[0];
+  try {
+    const res = await fetch(`${BASE_URL}/lookup.php?i=${id}`);
+    const data = await res.json();
+    return data.meals ? data.meals[0] : null;
+  } catch (error) {
+    console.log('Error fetch detail:', error);
+    return null;
+  }
+};
+
+export const fetchCategories = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/categories.php`);
+    const data = await res.json();
+    return data.categories || [];
+  } catch (error) {
+    console.log('Error fetch categories:', error);
+    return [];
+  }
 };
