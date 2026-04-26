@@ -3,13 +3,13 @@ import {
   View, Text, FlatList, Image, TouchableOpacity,
   ActivityIndicator, RefreshControl, ScrollView
 } from 'react-native';
-import { fetchMeals, fetchCategories } from '../api/mealApi';
+import { fetchMeals, fetchAllMeals, fetchCategories } from '../api/mealApi';
 import { homeStyles as styles } from '../styles/homeStyles';
 
 export default function HomeScreen({ navigation }) {
   const [meals, setMeals] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('Seafood');
+  const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -23,7 +23,9 @@ export default function HomeScreen({ navigation }) {
     try {
       setError(null);
       setLoading(true);
-      const data = await fetchMeals(category);
+      const data = category === 'Semua'
+        ? await fetchAllMeals()
+        : await fetchMeals(category);
       setMeals(data);
     } catch (e) {
       setError('Gagal memuat data. Cek koneksi kamu.');
@@ -35,7 +37,7 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     loadCategories();
-    loadData();
+    loadData('Semua');
   }, []);
 
   const handleCategoryPress = (categoryName) => {
@@ -62,6 +64,18 @@ export default function HomeScreen({ navigation }) {
         showsHorizontalScrollIndicator={false}
         style={styles.categoryContainer}
       >
+        {/* Tombol Semua */}
+        <TouchableOpacity
+          style={[styles.categoryBtn, selectedCategory === 'Semua' && styles.categoryBtnActive]}
+          onPress={() => handleCategoryPress('Semua')}
+        >
+          <Text style={{ fontSize: 24 }}>🍽️</Text>
+          <Text style={[styles.categoryText, selectedCategory === 'Semua' && styles.categoryTextActive]}>
+            Semua
+          </Text>
+        </TouchableOpacity>
+
+        {/* Kategori dari API */}
         {categories.map(cat => (
           <TouchableOpacity
             key={cat.idCategory}
@@ -84,7 +98,7 @@ export default function HomeScreen({ navigation }) {
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => { setRefreshing(true); loadData(); }}
+            onRefresh={() => { setRefreshing(true); loadData(selectedCategory); }}
             colors={['#e76f51']}
           />
         }

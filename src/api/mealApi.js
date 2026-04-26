@@ -11,6 +11,21 @@ export const fetchMeals = async (category = 'Seafood') => {
   }
 };
 
+export const fetchAllMeals = async () => {
+  try {
+    const categories = ['Seafood', 'Chicken', 'Dessert', 'Beef', 'Vegetarian'];
+    const results = await Promise.all(
+      categories.map(cat => fetchMeals(cat))
+    );
+    // Gabungkan semua hasil & shuffle biar tidak urut
+    const all = results.flat();
+    return all.sort(() => Math.random() - 0.5);
+  } catch (error) {
+    console.log('Error fetch all meals:', error);
+    return [];
+  }
+};
+
 export const fetchMealDetail = async (id) => {
   try {
     const res = await fetch(`${BASE_URL}/lookup.php?i=${id}`);
