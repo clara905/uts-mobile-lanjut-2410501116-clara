@@ -35,14 +35,36 @@ https://drive.google.com/drive/folders/19IFJcQOuZ7fsLL66RQLoHoYMd8_ZaLUw?usp=sha
 ## Justifikasi State Management
 Dipilih Context API + useReducer karena state yang dikelola hanya daftar favorit (sederhana), tidak memerlukan middleware, dan tidak menambah dependency eksternal.
 
-## Daftar Referensi
-- [TheMealDB API](https://www.themealdb.com/api.php)
-- [React Navigation Docs](https://reactnavigation.org/docs/getting-started)
-- [Expo Docs](https://docs.expo.dev)
-- [React Native Docs](https://reactnative.dev/docs/getting-started)
+## refleksi
+Selama mengerjakan proyek UTS ini, saya mendapatkan banyak pengalaman berharga 
+dalam pengembangan aplikasi mobile menggunakan React Native dan Expo. Proyek ini 
+cukup menantang karena saya harus membangun aplikasi dari nol dengan berbagai 
+fitur yang terintegrasi satu sama lain.
 
+Kesulitan pertama yang saya hadapi adalah mengatur struktur navigasi kombinasi 
+Stack Navigator dan Bottom Tab Navigator. Awalnya saya bingung bagaimana cara 
+passing params dari HomeScreen ke DetailScreen karena berada di dalam Stack yang 
+berbeda. Setelah mencoba beberapa pendekatan, akhirnya saya memahami bahwa params 
+harus diakses melalui route.params di screen tujuan.
 
-## Referensi
+Bug terbesar yang pernah muncul adalah error "Element type is invalid: expected 
+a string but got undefined". Error ini muncul berkali-kali dan cukup membuat 
+frustasi karena pesannya tidak langsung menunjukkan file mana yang bermasalah. 
+Setelah ditelusuri, ternyata penyebabnya adalah file context seperti AuthContext 
+dan FavoritContext belum dibuat namun sudah diimport di navigator. Saya belajar 
+bahwa setiap file yang diimport harus benar-benar ada dan memiliki export default 
+yang benar.
+
+Kesulitan lain yang saya alami adalah saat mengimplementasikan Context API untuk 
+state management favorit. Saya harus memahami konsep useReducer yang berbeda dari 
+useState biasa, terutama dalam mendefinisikan reducer function dan dispatch action 
+yang tepat.
+
+Secara keseluruhan, proyek ini sangat membantu saya memahami konsep React Native 
+secara lebih mendalam, terutama dalam hal navigasi, state management, integrasi 
+API, dan pengelolaan struktur project yang rapi.
+
+## referensi
 1. TheMealDB API Documentation — https://www.themealdb.com/api.php
 2. React Navigation Getting Started — https://reactnavigation.org/docs/getting-started
 3. React Navigation Stack Navigator — https://reactnavigation.org/docs/stack-navigator
