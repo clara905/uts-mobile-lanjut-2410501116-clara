@@ -22,12 +22,14 @@ npx expo start
 Scan QR dengan Expo Go.
 
 ## Screenshots
-![home] (Screenshots/home.png)
-![error] (Screenshots/error.png)
-![favorit] (Screenshots/Favorit.png)
-![search] (Screenshots/search.png)
-![passwordGagal] (Screenshots/passwordGagal.png)
-![gagalDaftar] (Screenshots/gagalDaftar.png)
+![Home](Screenshots/home.png)
+![Error](Screenshots/error.png)
+![Favorit](Screenshots/Favorit.png)
+![Search](Screenshots/search.png)
+![Password Gagal](Screenshots/passwordGagal.png)
+![Gagal Daftar](Screenshots/gagalDaftar.png)
+![Detail](Screenshots/Detail.png)
+
 
 ## Video Demo
 https://drive.google.com/drive/folders/19IFJcQOuZ7fsLL66RQLoHoYMd8_ZaLUw?usp=sharing
